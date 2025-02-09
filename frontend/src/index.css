@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(233, 233, 233,1);
+  background-image: url("walpaper.jpg");
+  background-size: 500px 500px; 
+  background-repeat: repeat;
+  background-position: center;
+
+}
+
+.font-poppins{
+  font-family: 'Poppins', sans-serif;
+}
