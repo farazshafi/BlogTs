@@ -54,3 +54,16 @@ export const createBlogApi = async (formData:FormData) => {
         }
     }
 }
+
+export const updateBlogApi = async (id:number,formData:FormData) => {
+    try {
+        const response = await axios.post(`${url}update_blog/${id}`,formData)
+        return response.data
+    } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+            throw err.response?.data?.message || "Something went wrong!";
+        } else {
+            throw new Error("An unexpected error occurred");
+        }
+    }
+}
