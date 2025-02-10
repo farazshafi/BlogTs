@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import ShinyText from '../Component/ShinyText/ShinyText';
 import SpotlightCard from '../Component/SpotlightCard/SpotlightCard';
 import { useEffect, useState } from 'react';
-import { getAllBlogsApi } from '../apis/blogApi';
+import { deleteBlogByIdApi, getAllBlogsApi } from '../apis/blogApi';
 import { toast } from "sonner";
 import { Blog } from '../types/types';
 
@@ -23,6 +23,20 @@ const Explore: React.FC = () => {
     }
   };
 
+  const deleteBlog = async (id: number) => {
+    try {
+      const data = await deleteBlogByIdApi(id)
+      toast.success(data.message);
+      getAllBlogs();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
+  }
+
   useEffect(() => {
     getAllBlogs();
   }, []);
@@ -31,7 +45,7 @@ const Explore: React.FC = () => {
     <div className='px-5'>
       <p className='text-center font-poppins text-3xl my-5'>Explore Blogs</p>
       <Link to={"/"}>
-        <button className='bg-slate-800 text-white mt-2 px-3 py-2 rounded'>
+        <button className='bg-slate-800 text-white mt-2 px-3 py-2 rounded hover:bg-slate-900 transition-colors duration-300'>
           <ShinyText text="Home" disabled={false} speed={3} className='shiny-text' />
         </button>
       </Link>
@@ -45,17 +59,28 @@ const Explore: React.FC = () => {
                   <img className='h-[100px] rounded my-3 object-contain' src={`http://localhost:5000/${blog.image}`} alt={blog.title} />
                 </div>
                 <p className='text-white font-poppins text-xl text-center'>{blog.title}</p>
-                <Link to={`/blog/${blog.id}`}>
-                  <button className='bg-slate-800 w-full text-center text-white mt-2 px-3 py-2 rounded'>
-                    <ShinyText text="GO" disabled={false} speed={3} className='shiny-text' />
+                <div className="flex">
+                  <Link to={`/blog/${blog.id}`}>
+                    <button className='bg-slate-800 flex w-[70%] text-center text-white mt-2 px-3 py-2 rounded hover:bg-slate-900 transition-colors duration-300'>
+                      <ShinyText text="View" disabled={false} speed={3} className='shiny-text' />
+                    </button>
+                  </Link>
+
+                  <button onClick={() => {
+                    deleteBlog(blog.id)
+                  }}
+                    className='bg-slate-800 ml-5 text-center text-white mt-2 px-3 py-2 rounded hover:bg-slate-900 transition-colors duration-300'>
+                    <ShinyText text="Delete" disabled={false} speed={3} className='shiny-text' />
                   </button>
-                </Link>
+
+                </div>
               </div>
             </SpotlightCard>
           ))}
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
