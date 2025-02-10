@@ -40,7 +40,7 @@ const BlogDetail = () => {
                 <div className="flex justify-center h-screen">
                     <div className="w-1/2">
                         <div className="flex justify-center">
-                            <img className="w-48 h-48 object-cover rounded" src={`http://localhost:5000/${blog.image}`} alt={blog.title} />
+                            <img className="w-48 h-48 object-cover rounded" src={`http://localhost:5000${blog.image}`} alt={blog.title} />
                         </div>
 
                         <div className="mt-4">

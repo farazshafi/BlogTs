@@ -1,4 +1,4 @@
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
 import { Blog } from "../types/types"
 
 const url: string = `http://localhost:5000/api/blogs/`
@@ -32,6 +32,19 @@ export const getBlogByIdApi = async (id: number): Promise<Blog> => {
 export const deleteBlogByIdApi = async (id: number) => {
     try {
         const response = await axios.delete(`${url}delete_blog/${id}`)
+        return response.data
+    } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+            throw err.response?.data?.message || "Something went wrong!";
+        } else {
+            throw new Error("An unexpected error occurred");
+        }
+    }
+}
+
+export const createBlogApi = async (formData:FormData) => {
+    try {
+        const response = await axios.post(`${url}create_blog`,formData)
         return response.data
     } catch (err: unknown) {
         if (axios.isAxiosError(err)) {

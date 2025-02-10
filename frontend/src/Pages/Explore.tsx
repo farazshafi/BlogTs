@@ -56,7 +56,7 @@ const Explore: React.FC = () => {
             <SpotlightCard key={blog.id} className="custom-spotlight-card rounded-[10px]" spotlightColor="rgba(0, 229, 255, 0.2)">
               <div>
                 <div className='flex justify-center items-center'>
-                  <img className='h-[100px] rounded my-3 object-contain' src={`http://localhost:5000/${blog.image}`} alt={blog.title} />
+                  <img className='h-[100px] rounded my-3 object-contain' src={`http://localhost:5000${blog.image}`} alt={blog.title} />
                 </div>
                 <p className='text-white font-poppins text-xl text-center'>{blog.title}</p>
                 <div className="flex">

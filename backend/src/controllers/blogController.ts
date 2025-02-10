@@ -8,7 +8,9 @@ interface MulterRequest extends Request {
 export const createBlog = async (req: MulterRequest, res: Response): Promise<void> => {
     try {
         const { title, content } = req.body;
-        const image = req.file?.path
+        let image = req.file?.path
+        image = image?.slice(3)
+        console.log(`title: ${title}, content: ${content}, image: ${image}`)
 
         if (!title || !content || !image) {
             res.status(400).json({ message: "Title and content are required" });
